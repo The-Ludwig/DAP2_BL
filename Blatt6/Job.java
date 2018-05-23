@@ -1,4 +1,7 @@
 
+/*
+ * Jobs are specified by a time and a deadline 
+ */
 class Job implements Comparable<Job>
 {
 	private int time, deadline;

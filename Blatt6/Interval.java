@@ -1,4 +1,6 @@
-
+/*
+ * Intervals are specified by a start and a end field 
+ */
 class Interval implements Comparable<Interval>
 {
 	private int start, end;

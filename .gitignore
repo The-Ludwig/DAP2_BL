@@ -7,6 +7,11 @@
 # BlueJ files
 *.ctxt
 
+# Eclipse Data 
+*.classpath
+*.project
+.metadata
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -19,7 +24,10 @@
 *.rar
 *.txt
 *.zahlen
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# src files der Aufgaben
 *.txt
 *.zahlen

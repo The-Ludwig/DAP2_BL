@@ -8,9 +8,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-
+/*
+ * The class which implements the main application. For this the main method is defined hear as well as the 
+ * different scheduleing methods ans the file reading methode
+ * @see 	Interval
+ * @see 	Job
+ */
 class Anwendung
 {
+	/*
+	 * the main method that starts the application 
+	 * @param 	args[0]	takes Lateness ore Interval. defines which scheduling should be preformet
+	 * @param 	args[1]	path to your file which defines the Jobs and Intervalls 
+	 */
 	public static void main(String[] args)
 	{
 		boolean intervalSchedule = true;
@@ -47,6 +57,12 @@ class Anwendung
 		
 	}
 	
+	/*
+	 * schedules a given list of intervals so that the most intervals can be preformed without overlapping
+	 * @param 	intervals 	the list of intervals you wish to schedule 
+	 * @return 				the list of scheduled Intervals 
+	 * @see 	Interval
+	 */
 	public static ArrayList<Interval> intervalScheduling(ArrayList<Interval> intervals)
 	{
 		ArrayList<Interval> returner = new ArrayList<Interval>(intervals.size());
@@ -66,6 +82,12 @@ class Anwendung
 		return returner;
 	}
 	
+	/*
+	 * schedules a given list of Jobs so that the least delay occures 
+	 * @param 	jobs 	the list of jobs you wish to schedule 
+	 * @return 				the list of scheduled jobs 
+	 * @see 	Job
+	 */
 	public static int[] latenessScheduling(ArrayList<Job> jobs)
 	{
 		int[] returner = new int[jobs.size()];
@@ -78,6 +100,13 @@ class Anwendung
 		return returner; 
 	}
 	
+	/*
+	 * reads data out of a gifen BufferReader converts it into a list of jobs schedules them and gives the scheduled 
+	 * Jobs out. the data has to be line seperatet tuples where the tuples are comma seperatet int pairs 
+	 * @param 	br 	the Buffered Reader with the data you wish to schedule 
+	 * @see 	latenessScheduling(ArrayList<Job>)
+	 * @see 	Job
+	 */
 	public static void latenessApp(BufferedReader br)
 	{
 		ArrayList<Job> jobs = new ArrayList<Job>();
@@ -127,6 +156,13 @@ class Anwendung
 		System.out.println("Maximale Verspätung: "+maxLateness);
 	}
 	
+	/*
+	 * reads data out of a gifen BufferReader converts it into a list of Intervalls schedules them and gives the scheduled 
+	 * intervals out. the data has to be line seperatet tuples where the tuples are comma seperatet int pairs 
+	 * @param 	br 	the Buffered Reader with the data you wish to schedule 
+	 * @see 	intervalScheduling(ArrayList<Interval>)
+	 * @see 	Interval
+	 */
 	public static void intervalApp(BufferedReader br)
 	{
 		ArrayList<Interval> intervals = new ArrayList<Interval>();
@@ -164,6 +200,9 @@ class Anwendung
 		System.out.println(intervalScheduling(intervals));
 	}
 	
+	/*
+	 * prints out how to use the Application
+	 */
 	public static void printUsage()
 	{
 		System.out.println("Use as follows:\n Anwendung [Lateness|Interval] [Filepath]");
