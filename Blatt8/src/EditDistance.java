@@ -1,11 +1,18 @@
 
 public class EditDistance {
 	
+	static int[][] D;
+	static String a, b; 
+	
+	
 	public static int distance(String a, String b){
+		this.a = a;
+		this.b = b; 
+		
 		int n = a.length() + 1;
 		int m = b.length() + 1;
 		
-		int[][] D = new int[n][m];
+		D = new int[n][m];
 		D[0][0] = 0;
 		
 		for (int i = 1; i < n; i++) {
@@ -31,9 +38,8 @@ public class EditDistance {
 		
 		return D[a.length()][b.length()];
 	}
-	
-	
-	static int min(int a, int b, int c){
+
+	private static int min(int a, int b, int c){
 		if (a <= b  && a <= c)
 			return a;
 		else if (b <= a && b<= c)
@@ -41,6 +47,15 @@ public class EditDistance {
 		else
 			return c;
 	}
-
+	
+	public static void printEditOperations()
+	{
+		System.out.println("Loesung fuer \" "+this.a+"\" --> \""+this.b+"\" mit Gesamtkosten "+D[a.length()][b.length()]+":"); 
+		System.out.println("====================================================================================================");
+		
+		String edit = ""; 
+		
+		//TODO: Backtracing
+	}
 }
 
