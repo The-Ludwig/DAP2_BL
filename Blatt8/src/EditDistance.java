@@ -5,9 +5,7 @@ public class EditDistance {
 	static String a, b; 
 	
 	
-	public static int distance(String a, String b){
-		this.a = a;
-		this.b = b; 
+	public static int[][] distance(String a, String b){
 		
 		int n = a.length() + 1;
 		int m = b.length() + 1;
@@ -36,7 +34,7 @@ public class EditDistance {
 			System.out.println("");
 		}
 		
-		return D[a.length()][b.length()];
+		return D;
 	}
 
 	private static int min(int a, int b, int c){
@@ -50,12 +48,53 @@ public class EditDistance {
 	
 	public static void printEditOperations()
 	{
-		System.out.println("Loesung fuer \" "+this.a+"\" --> \""+this.b+"\" mit Gesamtkosten "+D[a.length()][b.length()]+":"); 
+		System.out.println("Loesung fuer \" "+a+"\" --> \""+b+"\" mit Gesamtkosten "+D[a.length()][b.length()]+":"); 
 		System.out.println("====================================================================================================");
 		
 		String edit = ""; 
 		
 		//TODO: Backtracing
 	}
+	
+	public static int backTracingAusgabe(int[][] D, int a, int b, String sA, String sB){
+		if (a == 0 && b == 0)
+			return 1;
+		
+		if ( a < 1){
+			int schritt =backTracingAusgabe(D, a, b-1, sA, sB);
+			System.out.println(schritt + ") Kosten 1: Fuege " + sB.charAt(b-1) + " an Position " + a + " ein --> " );
+			return schritt + 1;
+		} 
+		
+		if (b < 1){
+			int schritt = backTracingAusgabe(D, a-1, b, sA, sB);
+			System.out.println(schritt + ") Kosten 1: Loesche " + sA.charAt(a-1) + " an Position " + a + " --> " );
+			return schritt + 1;
+		}
+		
+		if (sA.charAt(a-1) == sB.charAt(b-1) && D[a][b] == D[a-1][b-1]){
+			int schritt = backTracingAusgabe(D, a-1, b-1, sA, sB);
+			System.out.println(schritt + ") Kosten 0: " + sA.charAt(a-1) + " an Position " + a + " --> " );
+			return schritt + 1;
+		} else{
+			if (D[a][b] == D[a-1][b-1] + 1){
+				int schritt =backTracingAusgabe(D, a, b-1, sA, sB);
+				System.out.println(schritt + ") Kosten 1: Ersetze " + sA.charAt(a-1) + " an Position " + a + " mit " + sB.charAt(b-1) + " --> " );
+				return schritt + 1;
+			}
+			else if (D[a][b] == D[a][b-1] + 1){
+				int schritt =backTracingAusgabe(D, a, b-1, sA, sB);
+				System.out.println(schritt + ") Kosten 1: Fuege " + sB.charAt(b-1) + " an Position " + a + " ein --> " );
+				return schritt + 1;
+			}
+			else if (D[a][b] == D[a-1][b] + 1){
+				int schritt =backTracingAusgabe(D, a-1, b, sA, sB);
+				System.out.println(schritt + ") Kosten 1: Loesche " + sA.charAt(a-1) + " an Position " + a + " --> " );
+				return schritt + 1;
+			}
+		}	
+		return -1;
+	}
+	
 }
 
