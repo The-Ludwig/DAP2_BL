@@ -19,7 +19,7 @@ public class Main {
 		schritte = loesungsMatrix[laengeA][laengeB];
 		
 		if(args.length == 3 && args[2].equals("-o") && schritte != -1)
-			EditDistance.backTracingAusgabe(loesungsMatrix, laengeA, laengeB, args[0], args[1]); 
+			EditDistance.backTracingAusgabe(loesungsMatrix, laengeA, laengeB, stringA, stringB); 
 		else if(args.length == 2 && schritte != -1)
 			System.out.println(schritte);
 		else
