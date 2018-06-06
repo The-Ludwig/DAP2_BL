@@ -18,10 +18,18 @@ public class Main {
 		
 		schritte = loesungsMatrix[laengeA][laengeB];
 		
-		if(args.length == 3 && args[2].equals("-o") && schritte != -1)
-			EditDistance.backTracingAusgabe(loesungsMatrix, laengeA, laengeB, stringA, stringB); 
+		String[] stringAA = new String[1];
+		stringAA[0] = stringA;
+		
+		if(args.length == 3 && args[2].equals("-o") && schritte != -1) {
+			
+			System.out.println("Loesung fuer \" "+stringA+"\" --> \""+stringB+"\" mit Gesamtkosten "+loesungsMatrix[stringA.length()][stringB.length()]+":"); 
+			System.out.println("====================================================================================================");
+
+			EditDistance.backTracingAusgabe(loesungsMatrix, laengeA, laengeB, stringAA, stringB); 
+		}
 		else if(args.length == 2 && schritte != -1)
-			System.out.println(schritte);
+			System.out.println("Minimale Anzahl Editierschritte: "+schritte);
 		else
 			System.out.println("Usage: java Main arg1 arg2 [-0]");
 	}

@@ -1,16 +1,22 @@
-
+/*
+ *tolle klasse legen wir ersmal weg die tolle klasse
+ * macht string distancen und so
+ */
 public class EditDistance {
 	
-	static int[][] D;
-	static String a, b; 
 	
-	
+	/*
+	 * berechnet die editierdistanz von zwei strings
+	 * 
+	 * @param die zu editierenden strings
+	 * @return die loesungsmatrix
+	 */
 	public static int[][] distance(String a, String b){
 		
 		int n = a.length() + 1;
 		int m = b.length() + 1;
 		
-		D = new int[n][m];
+		int D[][] = new int[n][m];
 		D[0][0] = 0;
 		
 		for (int i = 1; i < n; i++) {
@@ -43,6 +49,11 @@ public class EditDistance {
 		return D;
 	}
 
+	/*
+	 * berechnet das minimum aus drei integern 
+	 * @param int , int b, int c drei ints die verglichen werdne solle 
+	 * @return int das minimum aus den drei integern 
+	 */
 	private static int min(int a, int b, int c){
 		if (a <= b  && a <= c)
 			return a;
@@ -52,51 +63,58 @@ public class EditDistance {
 			return c;
 	}
 	
-	public static void printEditOperations()
-	{
-		System.out.println("Loesung fuer \" "+a+"\" --> \""+b+"\" mit Gesamtkosten "+D[a.length()][b.length()]+":"); 
-		System.out.println("====================================================================================================");
+	/*
+	 * rekursieves backtracing welches den verlauf der editierung ausgiebt
+	 * @param int[][] D die loesungsmatrix der editierung 
+	 * @param int a, int b die stelle an welcher wir in der matrix sind
+	 * @param String sA[] der zu editierende string im array weil call by reference und so java abfuck!!!
+	 * @param String sB der String in den editiert werden soll 
+	 * @return int schritte 
+	 */
+	public static int backTracingAusgabe(int[][] D, int a, int b, String sA[], String sB){
+		int i = D.length - 1;
 		
-		String edit = ""; 
 		
-		//TODO: Backtracing
-	}
-	
-	public static int backTracingAusgabe(int[][] D, int a, int b, String sA, String sB){
-		
-		if (a == 0 && b == 0)
+		if (a == 0 && b == 0) {
 			return 1;
+		}
 		
 		if ( a < 1){
 			int schritt =backTracingAusgabe(D, a, b-1, sA, sB);
-			System.out.println(schritt + ") Kosten 1: Fuege " + sB.charAt(b-1) + " an Position " + a + " ein --> " + (sA = einfuegen(sA, sB.charAt(b-1), a-1)));
+			int offset = sA[0].length() - i;
+			System.out.println(schritt + ") Kosten 1: Fuege " + sB.charAt(b-1) + " an Position " + (a + offset) + " ein --> " + (sA[0] = einfuegen(sA[0], sB.charAt(b-1), a-1+ offset)));
 			return schritt + 1;
 		} 
 		
 		if (b < 1){
 			int schritt = backTracingAusgabe(D, a-1, b, sA, sB);
-			System.out.println(schritt + ") Kosten 1: Loesche " + sA.charAt(a-1) + " an Position " + a + " --> " + (sA = loesche(sA, a-1)));
+			int offset = sA[0].length() - i;
+			System.out.println(schritt + ") Kosten 1: Loesche " + sA[0].charAt(a-1+ offset) + " an Position " + (a+ offset) + " --> " + (sA[0] = loesche(sA[0], a-1+ offset)));
 			return schritt + 1;
 		}
 		
-		if (sA.charAt(a-1) == sB.charAt(b-1) && D[a][b] == D[a-1][b-1]){
+		if (sA[0].charAt(a-1) == sB.charAt(b-1) && D[a][b] == D[a-1][b-1]){
 			int schritt = backTracingAusgabe(D, a-1, b-1, sA, sB);
-			System.out.println(schritt + ") Kosten 0: " + sA.charAt(a-1) + " an Position " + a + " --> " + sA);
+			int offset = sA[0].length() - i;
+			System.out.println(schritt + ") Kosten 0: " + sA[0].charAt(a-1+ offset) + " an Position " + (a+ offset) + " --> " + sA[0]);
 			return schritt + 1;
 		} else{
 			if (D[a][b] == D[a-1][b-1] + 1){
 				int schritt =backTracingAusgabe(D, a-1, b-1, sA, sB);
-				System.out.println(schritt + ") Kosten 1: Ersetze " + sA.charAt(a-1) + " an Position " + a + " mit " + sB.charAt(b-1) + " --> " + (sA = ersetze(sA, sB.charAt(b-1), a-1)));
+				int offset = sA[0].length() - i;
+				System.out.println(schritt + ") Kosten 1: Ersetze " + sA[0].charAt(a-1+ offset) + " an Position " + (a+ offset) + " mit " + sB.charAt(b-1) + " --> " + (sA[0] = ersetze(sA[0], sB.charAt(b-1), a-1+ offset)));
 				return schritt + 1;
 			}
 			else if (D[a][b] == D[a][b-1] + 1){
 				int schritt =backTracingAusgabe(D, a, b-1, sA, sB); 
-				System.out.println(schritt + ") Kosten 1: Fuege " + sB.charAt(b-1) + " an Position " + a + " ein --> " + (sA = einfuegen(sA, sB.charAt(b-1), a-1)));
+				int offset = sA[0].length() - i;
+				System.out.println(schritt + ") Kosten 1: Fuege " + sB.charAt(b-1) + " an Position " + (a+ offset) + " ein --> " + (sA[0] = einfuegen(sA[0], sB.charAt(b-1), a-1+ offset)));
 				return schritt + 1;
 			}
 			else if (D[a][b] == D[a-1][b] + 1){
 				int schritt =backTracingAusgabe(D, a-1, b, sA, sB);
-				System.out.println(schritt + ") Kosten 1: Loesche " + sA.charAt(a-1) + " an Position " + a + " --> " + (sA = loesche(sA, a-1)));
+				int offset = sA[0].length() - i;
+				System.out.println(schritt + ") Kosten 1: Loesche " + sA[0].charAt(a-1+ offset) + " an Position " + (a+ offset) + " --> " + (sA[0] = loesche(sA[0], a-1+ offset)));
 				return schritt + 1;
 			}
 		}	
@@ -117,6 +135,12 @@ public class EditDistance {
 		return sA;
 	}
 	
+	/*
+	 * ersetzt einen char an einem index mit einem anderen in einem array
+	 * @param String sA der String der editiert werdne soll
+	 * @param char b der char der eingesetzt werden soll
+	 * @param der index an dem ersetzt wird 
+	 */
 	private static String ersetze(String sA, char b, int index){
 		if (index - 1 < 0 ){
 			if (index + 1 > sA.length())
