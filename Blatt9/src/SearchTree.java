@@ -1,4 +1,4 @@
-package searchtree;
+
 /**
  * 
  * @author Stames
@@ -29,69 +29,6 @@ public class SearchTree {
 	
 	/**
 	 * 
-	 */
-	public void preOrder(){
-		preOrder(this.root);
-	}
-	
-	/**
-	 * 
-	 * @param n
-	 */
-	public void preOrder(Node n){
-		if (n == null)
-			return;
-		else{
-			System.out.println(n.value);
-			preOrder(n.lc);
-			preOrder(n.rc);
-		}	
-	}
-	
-	/**
-	 * 
-	 */
-	public void inOrder() {
-		inOrder(this.root);
-	}
-	
-	/**
-	 * 
-	 * @param n
-	 */
-	public void inOrder(Node n){
-		if (n == null)
-			return;
-		else{
-			inOrder(n.lc);
-			System.out.println(n.value);
-			inOrder(n.rc);
-		}	
-	}
-	
-	/**
-	 * 
-	 */
-	public void postOrder() {
-		postOrder(this.root);
-	}
-	
-	/**
-	 * 
-	 * @param n
-	 */
-	public void postOrder(Node n){
-		if (n == null)
-			return;
-		else{
-			postOrder(n.lc);
-			postOrder(n.rc);
-			System.out.println(n.value);
-		}	
-	}
-	
-	/**
-	 * 
 	 * @param value
 	 * @param n
 	 */
@@ -115,13 +52,79 @@ public class SearchTree {
 			System.out.println("Node Bereits im Baum drinne");
 	}
 	
+	/**
+	 * 
+	 */
+	public void preOrder(){
+		preOrder(this.root);
+		System.out.println();
+	}
+	
+	/**
+	 * 
+	 * @param n
+	 */
+	public void preOrder(Node n){
+		if (n == null)
+			return;
+		else{
+			System.out.print(n.value+ ", ");
+			preOrder(n.lc);
+			preOrder(n.rc);
+		}	
+	}
+	
+	/**
+	 * 
+	 */
+	public void inOrder() {
+		inOrder(this.root);
+		System.out.println();
+	}
+	
+	/**
+	 * 
+	 * @param n
+	 */
+	public void inOrder(Node n){
+		if (n == null)
+			return;
+		else{
+			inOrder(n.lc);
+			System.out.print(n.value + ", ");
+			inOrder(n.rc);
+		}	
+	}
+	
+	/**
+	 * 
+	 */
+	public void postOrder() {
+		postOrder(this.root);
+		System.out.println();
+	}
+	
+	/**
+	 * 
+	 * @param n
+	 */
+	public void postOrder(Node n){
+		if (n == null)
+			return;
+		else{
+			postOrder(n.lc);
+			postOrder(n.rc);
+			System.out.print(n.value + ", ");
+		}	
+	}
+	
 	
 	/**
 	 * 
 	 * @author Stames
 	 *
 	 */
-	static class Node{
+	private class Node{
 		int value;
 		Node lc;
 		Node rc;
@@ -133,10 +136,7 @@ public class SearchTree {
 		 * @param pPa
 		 */
 		public Node(int pValue, Node pPa){
-			this.value = pValue;
-			this.lc = null;
-			this.rc = null;
-			this.pa = pPa;
+			this(pValue, null, null, pPa);
 		}
 		
 		/**

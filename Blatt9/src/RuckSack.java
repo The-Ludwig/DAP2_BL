@@ -1,4 +1,4 @@
-package rucksack;
+
 
 import java.util.ArrayList;
 
