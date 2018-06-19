@@ -4,6 +4,7 @@ public class maxSubArray
 {
 	public static void main(String[] args)
 	{
+				
 		int len = 0;
 		try 
 		{
