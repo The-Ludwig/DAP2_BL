@@ -1,7 +1,7 @@
 
 public class TuermeVonHanoi {
 	/**
-	 * main Methode nimmt ein Arbument welches die anzahl an zu verschiebenen Scheiben ist
+	 * main Methode nimmt ein Argument welches die Anzahl an zu verschiebenen Scheiben ist
 	 * @param args
 	 */
 	public static void main(String[] args) {
