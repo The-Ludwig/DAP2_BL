@@ -151,7 +151,17 @@ public class GraphTest {
 			System.out.println("Der maximale Abstand ist " + maxDist + " fuer Knoten " + e.getID());
 		} else {
 			// Fuehre Floyd-Warshall-Algorithmus aus
+			double startApsp = System.currentTimeMillis();
 			double[][] minCost=apsp(g);
+			double endApsp = System.currentTimeMillis();
+			double zeitApsp = endApsp - startApsp;
+			
+			double startApspBell = System.currentTimeMillis();
+			double[][] minCostBellman=apspBellmanFord(g);
+			double endApspBell = System.currentTimeMillis();
+			double zeitApspBell = endApspBell - startApspBell;
+			
+			
 			ArrayList<Node> nodes = g.getNodes();
 			Node s = nodes.get(0), e = s;
 			double maxDist = 0d;
@@ -169,6 +179,14 @@ public class GraphTest {
 				if (nodes.size()<= 10) System.out.println();
 			}
 			System.out.println("Der maximale Abstand ist " + maxDist + " fuer das Knotenpaar (" + s.getID() + ", " + e.getID() + ")");
+			
+			System.out.println();
+			System.out.println();
+			System.out.println("apsp hat gebraucht:  " + zeitApsp);
+			System.out.println("apspBellmanFord hat gebraucht:  " + zeitApspBell);
 		}
+		
+		
+		
 	}
 }
